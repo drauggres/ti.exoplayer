@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.C.ContentType;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -729,7 +730,33 @@ public class TiUIVideoView extends TiUIView
 			DefaultRenderersFactory renderersFactory =
 				new DefaultRenderersFactory(activity, drmSessionManager, extensionRendererMode);
 
-			player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, drmSessionManager);
+			DefaultLoadControl.Builder builder = new DefaultLoadControl.Builder();
+			int minBufferMs = TiConvert.toInt(proxy.getProperty(TiExoplayerModule.PROPERTY_MIN_BUFFER_MS),
+											  DefaultLoadControl.DEFAULT_MIN_BUFFER_MS);
+			int maxBufferMs = TiConvert.toInt(proxy.getProperty(TiExoplayerModule.PROPERTY_MAX_BUFFER_MS),
+											  DefaultLoadControl.DEFAULT_MAX_BUFFER_MS);
+			int bufferForPlaybackMs =
+				TiConvert.toInt(proxy.getProperty(TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_MS),
+								DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS);
+			int bufferForPlaybackAfterRebufferMs =
+				TiConvert.toInt(proxy.getProperty(TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS),
+								DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS);
+			builder.setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs,
+										 bufferForPlaybackAfterRebufferMs);
+
+			boolean prioritizeTimeOverSizeThresholds =
+				TiConvert.toBoolean(proxy.getProperty(TiExoplayerModule.PROPERTY_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS),
+									DefaultLoadControl.DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
+			builder.setPrioritizeTimeOverSizeThresholds(prioritizeTimeOverSizeThresholds);
+
+			int targetBufferBytes = TiConvert.toInt(proxy.getProperty(TiExoplayerModule.PROPERTY_TARGET_BUFFER_BYTES),
+													DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES);
+			if (targetBufferBytes != DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES) {
+				builder.setTargetBufferBytes(targetBufferBytes);
+			}
+
+			player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector,
+														builder.createDefaultLoadControl(), drmSessionManager);
 			player.addListener(this);
 			player.addMetadataOutput(this);
 			player.setVideoDebugListener(this);

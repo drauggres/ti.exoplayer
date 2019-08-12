@@ -98,6 +98,12 @@ For full VideoPlayer API see documentation for original [Ti.Media.VideoPlayer](h
 * `showsControls`: [`videoPlayer.showsControls`](https://docs.appcelerator.com/platform/latest/#!/api/Titanium.Media.VideoPlayer-property-showsControls)
 * `surfaceType`: The type of surface view used for video playbacks. Valid values are `ExoPlayer.SURFACE_TYPE_*`.
 * `volume`: Ajusts volume of [`AudioManager.STREAM_MUSIC`](https://developer.android.com/reference/android/media/AudioManager.html#STREAM_MUSIC)
+* `bufferForPlaybackMs`
+* `bufferForPlaybackAfterRebufferMs`
+* `maxBufferMs`
+* `minBufferMs`
+* `prioritizeTimeOverSizeThresholds`
+* `targetBufferBytes`
 
 
 ## Usage

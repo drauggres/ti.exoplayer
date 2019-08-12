@@ -11,6 +11,7 @@ import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.RendererCapabilities;
@@ -31,6 +32,8 @@ public class TiExoplayerModule extends KrollModule
 	public static final String PARAMETERS_PROPERTY_SPEED = "speed";
 
 	public static final String PROPERTY_AD_TAG_URI_EXTRA = "adTagUri";
+	public static final String PROPERTY_BUFFER_FOR_PLAYBACK_MS = "bufferForPlaybackMs";
+	public static final String PROPERTY_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS = "bufferForPlaybackAfterRebufferMs";
 	public static final String PROPERTY_CONTENT_EXTENSION = "contentExtension";
 	public static final String PROPERTY_CONTENT_TYPE = "contentType";
 	public static final String PROPERTY_DRM_KEY_REQUEST_PROPERTIES = "drmKeyRequestProperties";
@@ -38,10 +41,14 @@ public class TiExoplayerModule extends KrollModule
 	public static final String PROPERTY_DRM_MULTI_SESSION_EXTRA = "drmMultiSession";
 	public static final String PROPERTY_DRM_SCHEME_UUID_EXTRA = "drmScheme";
 	public static final String PROPERTY_LINEAR_GAIN = "linearGain";
+	public static final String PROPERTY_MAX_BUFFER_MS = "maxBufferMs";
+	public static final String PROPERTY_MIN_BUFFER_MS = "minBufferMs";
 	public static final String PROPERTY_NATURAL_SIZE = "naturalSize";
 	public static final String PROPERTY_PLAYBACK_PARAMETERS = "playbackParameters";
 	public static final String PROPERTY_PREFER_EXTENSION_DECODERS = "preferExtensionDecoders";
+	public static final String PROPERTY_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS = "prioritizeTimeOverSizeThresholds";
 	public static final String PROPERTY_SURFACE_TYPE = "surfaceType";
+	public static final String PROPERTY_TARGET_BUFFER_BYTES = "targetBufferBytes";
 
 	public static final String EVENT_METADATA = "metadata";
 	public static final String EVENT_NATURAL_SIZE_AVAILABLE = "naturalsizeavailable";

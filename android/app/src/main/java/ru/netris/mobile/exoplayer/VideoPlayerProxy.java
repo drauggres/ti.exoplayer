@@ -40,6 +40,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -53,15 +54,21 @@ import com.google.android.exoplayer2.util.Util;
 		TiC.PROPERTY_INITIAL_PLAYBACK_TIME,
 		TiC.PROPERTY_PLAYABLE_DURATION,
 		TiC.PROPERTY_URL,
+		TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_MS,
+		TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
 		TiExoplayerModule.PROPERTY_CONTENT_EXTENSION,
 		TiExoplayerModule.PROPERTY_CONTENT_TYPE,
 		TiExoplayerModule.PROPERTY_DRM_KEY_REQUEST_PROPERTIES,
 		TiExoplayerModule.PROPERTY_DRM_LICENSE_URL,
 		TiExoplayerModule.PROPERTY_DRM_MULTI_SESSION_EXTRA,
 		TiExoplayerModule.PROPERTY_DRM_SCHEME_UUID_EXTRA,
-		TiExoplayerModule.PROPERTY_PREFER_EXTENSION_DECODERS,
 		TiExoplayerModule.PROPERTY_LINEAR_GAIN,
-		TiExoplayerModule.PROPERTY_SURFACE_TYPE
+		TiExoplayerModule.PROPERTY_MAX_BUFFER_MS,
+		TiExoplayerModule.PROPERTY_MIN_BUFFER_MS,
+		TiExoplayerModule.PROPERTY_PREFER_EXTENSION_DECODERS,
+		TiExoplayerModule.PROPERTY_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS,
+		TiExoplayerModule.PROPERTY_SURFACE_TYPE,
+		TiExoplayerModule.PROPERTY_TARGET_BUFFER_BYTES
 })
 // clang-format on
 public class VideoPlayerProxy extends TiViewProxy implements TiLifecycle.OnLifecycleEvent
@@ -115,6 +122,16 @@ public class VideoPlayerProxy extends TiViewProxy implements TiLifecycle.OnLifec
 		defaultValues.put(TiC.PROPERTY_SHOWS_CONTROLS, true);
 		defaultValues.put(TiExoplayerModule.PROPERTY_LINEAR_GAIN, 1.0f);
 		defaultValues.put(TiExoplayerModule.PROPERTY_SURFACE_TYPE, TiExoplayerModule.SURFACE_TYPE_SURFACE_VIEW);
+		defaultValues.put(TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_MS,
+						  DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_MS);
+		defaultValues.put(TiExoplayerModule.PROPERTY_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS,
+						  DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS);
+		defaultValues.put(TiExoplayerModule.PROPERTY_MAX_BUFFER_MS, DefaultLoadControl.DEFAULT_MAX_BUFFER_MS);
+		defaultValues.put(TiExoplayerModule.PROPERTY_MIN_BUFFER_MS, DefaultLoadControl.DEFAULT_MIN_BUFFER_MS);
+		defaultValues.put(TiExoplayerModule.PROPERTY_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS,
+						  DefaultLoadControl.DEFAULT_PRIORITIZE_TIME_OVER_SIZE_THRESHOLDS);
+		defaultValues.put(TiExoplayerModule.PROPERTY_TARGET_BUFFER_BYTES,
+						  DefaultLoadControl.DEFAULT_TARGET_BUFFER_BYTES);
 	}
 
 	public static KrollDict getPlaybackParametersDict(PlaybackParameters playbackParameters)
