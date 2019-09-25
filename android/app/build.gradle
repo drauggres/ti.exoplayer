@@ -84,6 +84,6 @@ task tiBuild(type: Exec, dependsOn: ['downloadLibrary']) {
 }
 
 task printSDKName {
-    print(tiSDKName)
+    print("\nTISDK:${tiSDKName}")
 }
 
