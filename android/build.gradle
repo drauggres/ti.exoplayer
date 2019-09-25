@@ -1,20 +1,24 @@
 import groovy.json.JsonSlurper
 
 ext {
-    tiSDKName = "7.5.1.GA"
-    tiSDKVersion = "7.5.1"
+    tiSDKName = '7.5.1.GA'
+    tiSDKVersion = '7.5.1'
 }
 
 def getSdkPath = { ->
     def jsonSlurper = new JsonSlurper()
     def hashStdOut = new ByteArrayOutputStream()
     exec {
-        commandLine "ti", "info", "-o", "json", "-t", "titanium", "--sdk", tiSDKName
+        commandLine 'npx', 'ti', 'info', '-o', 'json', '-t', 'titanium', '--sdk', tiSDKName
         standardOutput = hashStdOut
     }
 
     def json = jsonSlurper.parseText(hashStdOut.toString())
-    return json.titanium[ext.tiSDKName].path
+    if (json.titanium && json.titanium[ext.tiSDKName]) {
+        return json.titanium[ext.tiSDKName].path
+    } else {
+        return '';
+    }
 }
 
 buildscript {
