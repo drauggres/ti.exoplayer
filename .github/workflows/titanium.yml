@@ -26,7 +26,7 @@ jobs:
 #         VERSION=`./gradlew -q printSDKName 2>/dev/null |grep TISDK |cut -d':' -f2`
 #         echo $VERSION
 #       id: get-sdk-version
-    - uses: drauggres/setup-titanium@v1
+    - uses: drauggres/setup-titanium@master
       with:
 #        sdk-version: ${{ steps.get-sdk-version.outputs.time }}
         sdk-version: '7.5.1.GA'
