@@ -22,7 +22,7 @@ jobs:
       run: npm install
     - uses: drauggres/setup-titanium@master
       with:
-#        sdk-version: ${{ steps.ti-detect-sdk.outputs.sdk-version }}
+# sdk-version: ${{ steps.ti-detect-sdk.outputs.sdk-version }}
         sdk-version: '7.5.1.GA'
     - name: Build with Gradle
       run: |
