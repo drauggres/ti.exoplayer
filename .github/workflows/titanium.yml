@@ -20,15 +20,16 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - name: install dependencies
       run: npm install
+#     - name: get Titanium SDK version
+#       run: |
+#         cd android
+#         VERSION=`./gradlew -q printSDKName 2>/dev/null |grep TISDK |cut -d':' -f2`
+#         echo $VERSION
+#       id: get-sdk-version
     - uses: drauggres/setup-titanium@v1
       with:
+#        sdk-version: ${{ steps.get-sdk-version.outputs.time }}
         sdk-version: '7.5.1.GA'
-#    - name: install Titanium SDK
-#      run: |
-#        cd android
-#        VERSION=`./gradlew -q printSDKName 2>/dev/null |grep TISDK |cut -d':' -f2`
-#        echo $VERSION
-#        npx ti sdk install $VERSION
     - name: Build with Gradle
       run: |
         cd android
